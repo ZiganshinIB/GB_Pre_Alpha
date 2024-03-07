@@ -12,14 +12,14 @@ class HeadHunter:
 
     root_url = 'https://hh.ru/'
 
-    def __init__(self,
+    def __init__(self,collection,
                  User_Agent:str = config.USER_AGENT):
         """
         Инициализация объекта
         :param User_Agent:
         """
         self.headers = {}
-        self.collection = MongoClient('mongodb://MongoAdmin:mongo123@192.168.96.96:27017/').client['hh_gb'].db['hh']
+        self.collection = collection
         if User_Agent:
             self.headers['User-Agent'] = User_Agent
 
@@ -238,8 +238,20 @@ class HeadHunter:
 
 
 if __name__ == "__main__":
-    hh = HeadHunter()
-    hh.all_get_resumes(find="1с+программист")
+    host = '192.168.96.96'
+    port = 27017
+    user_name = 'MongoAdmin'
+    password = 'mongo123'
+    try:
+        mongo = MongoClient(f'mongodb://{user_name}:{password}@{host}:{port}/')
+        dataBase = mongo.client['hh_gb']
+        collection = dataBase.db['hh']
+        hh = HeadHunter(collection)
+        hh.all_get_resumes(find="1с+программист")
+    except:
+        print("Нет связи с Базой данных ")
+        print(f"Проверти сервер {host}, если работает то проверти контейнер командой\ndocker ps")
+
 
 
 
