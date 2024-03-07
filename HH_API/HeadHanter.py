@@ -224,7 +224,6 @@ class HeadHunter:
                     print("Error")
                 # Обойдемся без DOS-атаки, random что бы не сразу поняли что мы берем данные
                 time.sleep(1+random.random()*3)
-            return datas
 
     def all_get_resumes(self, find):
         """
