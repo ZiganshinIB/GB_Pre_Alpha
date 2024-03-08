@@ -242,9 +242,9 @@ if __name__ == "__main__":
     user_name = 'MongoAdmin'
     password = 'mongo123'
     try:
-        mongo = MongoClient(f'mongodb://{user_name}:{password}@{host}:{port}/')
-        dataBase = mongo.client['hh_gb']
-        collection = dataBase.db['hh']
+        client = MongoClient(f'mongodb://{user_name}:{password}@{host}:{port}/')
+        db = client['hh_gb']
+        collection = db['hh']
         hh = HeadHunter(collection)
         hh.all_get_resumes(find="1с+программист")
     except:
